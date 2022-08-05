@@ -24,10 +24,7 @@ client.once("ready", () => {
 
 // taking in the commands
 client.on("message", (message) => {
-  // Bot was DMed
-  console.info(message.guild);
   if ((!message.content.startsWith(prefix) && message.guild) || message.author.bot) return;
-  console.info("Active");
   const args = message.content.slice(prefix.length).split(" ");
   const command = args.shift().toLowerCase();
 
