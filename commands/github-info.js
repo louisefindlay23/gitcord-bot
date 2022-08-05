@@ -11,12 +11,16 @@ module.exports = {
     if (!args.length) {
       db.fetchGit(message.author.id)
         .then((result) => {
-          return message.reply(`Your GitHub token is on file: ${result}`);
+          return message.reply(
+            "Your GitHub token is already on file: `" +
+              result +
+              "`. Use `-github-post-comment`, `-github-post-standup` and `-github-projects` commands."
+          );
         })
         .catch((err) => {
           console.error(err);
           return message.reply(
-            "Your GitHub token isn't on file. Try again, specifying your GitHub token (once you do it, we'll store it securely)"
+            "Your GitHub token isn't on file. Try again, specifying your GitHub token. **Guide:** https://bit.ly/3SxAqll. Don't worry, we'll store it securely."
           );
         });
     } else {
@@ -28,7 +32,9 @@ module.exports = {
         .then((result) => {
           db.insertGitHubToken(message.author.id, githubToken)
             .then((result) => {
-              return message.reply("GitHub auth was successful. Use -help to see what actions you can now take.");
+              return message.reply(
+                "GitHub auth was successful. Now you can use `-github-post-comment`, `-github-post-standup` and `-github-projects`."
+              );
             })
             .catch((err) => {
               db.updateGitHubToken(message.author.id, githubToken).then((result) => {

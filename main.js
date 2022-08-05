@@ -55,7 +55,7 @@ client.on("message", (message) => {
         .catch((err) => {
           console.error(err);
           return message.reply(
-            "Your GitHub token isn't on file. Run -github-info, specifying your GitHub token (and then try this again)"
+            "Your GitHub token isn't on file. Run -github-info, specifying your GitHub token (and then try this again). Use this guide: https://bit.ly/3SxAqll if you're unsure."
           );
         });
     } catch (error) {
