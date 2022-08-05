@@ -24,8 +24,10 @@ client.once("ready", () => {
 
 // taking in the commands
 client.on("message", (message) => {
-  if (!message.content.startsWith(prefix) || message.author.bot) return;
-
+  // Bot was DMed
+  console.info(message.guild);
+  if ((!message.content.startsWith(prefix) && message.guild) || message.author.bot) return;
+  console.info("Active");
   const args = message.content.slice(prefix.length).split(" ");
   const command = args.shift().toLowerCase();
 
@@ -35,10 +37,17 @@ client.on("message", (message) => {
 
   if (!client.commands.has(command)) {
     console.log("Command does not exist.");
+    client.commands.get("help").execute("help", message, args);
     return;
   }
 
-  if (command !== "lighthouse" && command !== "tech-stack" && command !== "help" && command !== "github-info" && command !== 'github-delete-token') {
+  if (
+    command !== "lighthouse" &&
+    command !== "tech-stack" &&
+    command !== "help" &&
+    command !== "github-info" &&
+    command !== "github-delete-token"
+  ) {
     try {
       db.fetchGit(message.author.id)
         .then((result) => {
